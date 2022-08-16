@@ -1,6 +1,7 @@
 import fetch from 'node-fetch';
 
 export default async function createPullRequest (workspace, repository, sourceBranch, destinationBranch, title, token) {
+  console.log('Creating pull request');
   const url = `https://api.bitbucket.org/2.0/repositories/${workspace}/${repository}/pullrequests`;
   const body = {
     title: title,
@@ -21,7 +22,7 @@ export default async function createPullRequest (workspace, repository, sourceBr
     headers: {
       // todo add support for auth token (don't work on my account)
       // Authorization: `Bearer ${token}`,
-      u: token,
+      u: `${encodeURIComponent(process.env.USER_NAME)}:${encodeURIComponent(process.env.PASSWORD)}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)

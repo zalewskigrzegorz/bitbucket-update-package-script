@@ -39,7 +39,7 @@ export default function async (App) {
       const { packageName, packageVersion } = merged;
 
       const workspace = options.workspace || 'Grzegorz_Zalewski';
-      const repository = options.repository || 'Create-pr-test-repo';
+      const repository = options.repository || 'create-pr-test-repo';
       const destinationBranch = options.branch || 'master';
 
       const token = options.token || process.env.BITBUCKET_AUTH;
@@ -52,10 +52,10 @@ export default function async (App) {
       // const createBranchResults = await createBranch(workspace, repository, destinationBranch, token);
       // handleErrors(createBranchResults);
       try {
-        // await clone(workspace, repository, token, sourceBranch);
-        // await updatePackage(repository, packageVersion, packageName);
-        // await commit(repository, `Update ${packageName} to ${packageVersion}`);
-        // await push(repository, sourceBranch, destinationBranch, token);
+        await clone(workspace, repository, token, sourceBranch);
+        await updatePackage(repository, packageVersion, packageName);
+        await commit(repository, `Update ${packageName} to ${packageVersion}`);
+        await push(repository, sourceBranch, destinationBranch, token);
         const createPullRequestResult = await createPullRequest(workspace, repository, sourceBranch, destinationBranch, title, token);
         handleErrors(createPullRequestResult);
         console.log('\x1b[32m%s\x1b[0m', 'Done');
