@@ -26,7 +26,7 @@ export default async function createPullRequest (workspace, repository, sourceBr
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      Authorization: `Basic ${new Buffer.from(`${process.env.USER_NAME}:${process.env.PASSWORD}`).toString('base64')}`,
+      Authorization: `Basic ${Buffer.from(`${process.env.USER_NAME}:${process.env.PASSWORD}`).toString('base64')}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)

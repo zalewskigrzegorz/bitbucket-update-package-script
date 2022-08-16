@@ -1,7 +1,7 @@
-import inquirer from 'inquirer';
-import { clone, commit, push } from '../services/git.js';
-import updatePackage from '../services/updatePackage.js';
 import createPullRequest from '../services/createPullRequest.js';
+import inquirer from 'inquirer';
+import updateFiles from '../services/updateFiles.js';
+import { clone, commit, push } from '../services/git.js';
 
 function generateQuestions (options) {
   const { packageName, packageVersion } = options;
@@ -14,7 +14,7 @@ function generateQuestions (options) {
   }
   return questions;
 }
-function handleErrors (results) {
+function handleResponseErrors (results) {
   if (results.type === 'error') {
     console.log('\x1b[31m%s\x1b[0m', results.error.message);
     process.exit(1);
@@ -46,11 +46,11 @@ export default function async (App) {
 
       try {
         await clone(workspace, repository, sourceBranch);
-        await updatePackage(repository, packageVersion, packageName);
-        await commit(repository, `Update ${packageName} to ${packageVersion}`);
+        const updatedFilesLocations = await updateFiles(repository, packageVersion, packageName);
+        await commit(repository, `Update ${packageName} to ${packageVersion}`, updatedFilesLocations);
         await push(repository, sourceBranch, destinationBranch);
         const createPullRequestResult = await createPullRequest(workspace, repository, sourceBranch, destinationBranch, title);
-        handleErrors(createPullRequestResult);
+        handleResponseErrors(createPullRequestResult);
         console.log('\x1b[32m%s\x1b[0m', 'Done');
       } catch (error) {
         console.log('\x1b[31m%s\x1b[0m', error.message);

@@ -1,6 +1,6 @@
 # bitbucket-update-script
 
-Small CLI tool to create PR on bitbucket with update package.json in.
+Small CLI tool to create PR on bitbucket with updated package in dependencies or devDependencies package.jso.
 
 # Usage
 
@@ -31,8 +31,9 @@ List of available commands can be always displayed by:
 `bitbucket-update-script -h`
 `bitbucket-update-script --help`
 
-### createPr
-Create a new workspace. You can provide data by using options or interactive mode, leaving empty value in an interactive mode will generate fake for it.
+### updatePackage
+Update package in dependencies or devDependencies in bitbucket repository.
+You can provide parameters by using options or interactive mode will ask for package name and version.
 
 ```Options:
   -n --packageName <packageName>        name of package to update.
@@ -42,11 +43,36 @@ Create a new workspace. You can provide data by using options or interactive mod
   -b --branch <branch>                  <optional> repository main branch.
   -h, --help                            display help for command
 ```
+#### Example output:
+
+```
+Clone repo
+redoc not found in devDependencies ./temp/create-pr-test-repo/package.json
+update redoc to 2.0.0-rc.75 in ./temp/create-pr-test-repo/package.json
+redoc not found in devDependencies ./temp/create-pr-test-repo/src/package.json
+update redoc to 2.0.0-rc.75 in ./temp/create-pr-test-repo/src/package.json
+wrong package.json format Unexpected token } in JSON at position 640
+Commit changes
+Push changes
+Creating pull request
+Pull request created successfully
+Done
+```
+#### How it works:
+1. Clone repository using git
+2. Create local branch with name of package and version
+3. Recursive find package.json 
+4. Try to parse all found package.json and return console log with error if package.json is not valid
+5. Update devDependencies and dependencies in package.json if packageName is found in package.json
+6. save package.json
+7. Commit changes using git
+8. Push changes using git
+9. Create pull request using bitbucket api
 
 # To Do
 * add support update package.json.lock in bitbucket
 * add support update yarn.lock in bitbucket
-* add support for Bearer token
-* fix package.json end line
+* fix package.json formatting to fallow the original format
 * add support for cross workspace pull request
-* add progress bar
+* replace console log by logger
+* consider to fetch only package.json and package.json.lock files from bitbucket to avoid fetching all files from repository

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import 'dotenv/config';
-import updatePackage from './commands/updatePackage.js';
 import App from 'commander';
+import updatePackage from './commands/updatePackage.js';
 try {
   App
     .version('0.0.1');
