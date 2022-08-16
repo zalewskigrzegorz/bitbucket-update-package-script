@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import 'dotenv/config'
+import 'dotenv/config';
 import updatePackage from './commands/updatePackage.js';
 import App from 'commander';
 try {

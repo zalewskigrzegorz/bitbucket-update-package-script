@@ -46,3 +46,5 @@ Create a new workspace. You can provide data by using options or interactive mod
 * add support update package.json.lock in bitbucket
 * add support update yarn.lock in bitbucket
 * add support for Bearer token
+* add support for creating branch by bitbucket API
+* fix package.json formating

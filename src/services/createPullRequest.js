@@ -19,8 +19,8 @@ export default async function createPullRequest (workspace, repository, sourceBr
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      //todo add support for auth token (don't work on my account)
-      //Authorization: `Bearer ${token}`,
+      // todo add support for auth token (don't work on my account)
+      // Authorization: `Bearer ${token}`,
       u: token,
       'Content-Type': 'application/json'
     },
