@@ -1,0 +1,29 @@
+{
+  "bin": {
+    "bitbucket-update-script": "src/index.js"
+  },
+  "type": "module",
+  "name": "bitbucket-update-script",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "semistandard": "^16.0.0"
+  },
+  "scripts": {
+    "run": "node src/index.js updatePackage -n redoc -v 2.0.0-rc.75",
+    "standard": "semistandard --fix"
+  },
+  "dependencies": {
+    "cli-progress": "^3.8.2",
+    "commander": "^6.2.1",
+    "dotenv": "^16.0.1",
+    "inquirer": "^7.3.3",
+    "node-fetch": "^3.2.10"
+  },
+  "semistandard": {
+    "ignore": [
+      "/test"
+    ]
+  }
+}
