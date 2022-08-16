@@ -21,6 +21,8 @@ after that you should be able to run CLI by:
 You can also run it without installing by:
 
 `node ./src/index.js <comandName>`
+## Setup authentication
+before use create your .env file according to .env-example
 
 ## Available commands
 
@@ -35,7 +37,6 @@ Create a new workspace. You can provide data by using options or interactive mod
 ```Options:
   -n --packageName <packageName>        name of package to update.
   -v --packageVersion <packageVersion>  target version.
-  -t --token <token>                    <optional> auth token for bitbucket.
   -w --workspace <workspace>            <optional> bitbucket workspace.
   -r --repository <repository>          <optional> bitbucket repository.
   -b --branch <branch>                  <optional> repository main branch.
@@ -46,5 +47,6 @@ Create a new workspace. You can provide data by using options or interactive mod
 * add support update package.json.lock in bitbucket
 * add support update yarn.lock in bitbucket
 * add support for Bearer token
-* add support for creating branch by bitbucket API
-* fix package.json formating
+* fix package.json end line
+* add support for cross workspace pull request
+* add progress bar

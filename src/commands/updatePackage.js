@@ -28,7 +28,6 @@ export default function async (App) {
     .description('Create PR on bitbucket with update package in package.json')
     .option('-n --packageName <packageName>', 'name of package to update.')
     .option('-v --packageVersion <packageVersion>', 'target version.')
-    .option('-t --token <token>', '<optional> auth token for bitbucket.')
     .option('-w --workspace <workspace>', '<optional> bitbucket workspace.')
     .option('-r --repository <repository>', '<optional> bitbucket repository.')
     .option('-b --branch <branch>', '<optional> repository main branch.')
@@ -42,21 +41,15 @@ export default function async (App) {
       const repository = options.repository || 'create-pr-test-repo';
       const destinationBranch = options.branch || 'master';
 
-      const token = options.token || process.env.BITBUCKET_AUTH;
-
       const sourceBranch = `${packageName}-${packageVersion}`;
       const title = `Update ${packageName} to ${packageVersion}`;
 
-      // logic
-      // todo for some reason this doesn't work:
-      // const createBranchResults = await createBranch(workspace, repository, destinationBranch, token);
-      // handleErrors(createBranchResults);
       try {
-        await clone(workspace, repository, token, sourceBranch);
+        await clone(workspace, repository, sourceBranch);
         await updatePackage(repository, packageVersion, packageName);
         await commit(repository, `Update ${packageName} to ${packageVersion}`);
-        await push(repository, sourceBranch, destinationBranch, token);
-        const createPullRequestResult = await createPullRequest(workspace, repository, sourceBranch, destinationBranch, title, token);
+        await push(repository, sourceBranch, destinationBranch);
+        const createPullRequestResult = await createPullRequest(workspace, repository, sourceBranch, destinationBranch, title);
         handleErrors(createPullRequestResult);
         console.log('\x1b[32m%s\x1b[0m', 'Done');
       } catch (error) {

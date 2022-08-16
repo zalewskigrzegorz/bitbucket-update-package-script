@@ -9,20 +9,24 @@ export default async function createPullRequest (workspace, repository, sourceBr
     source: {
       branch: {
         name: sourceBranch
+      },
+      repository:{
+        full_name: `${workspace}/${repository}`
       }
     },
     destination: {
       branch: {
         name: destinationBranch
+      },
+      repository:{
+        full_name: `${workspace}/${repository}`
       }
     }
   };
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      // todo add support for auth token (don't work on my account)
-      // Authorization: `Bearer ${token}`,
-      u: `${encodeURIComponent(process.env.USER_NAME)}:${encodeURIComponent(process.env.PASSWORD)}`,
+      Authorization: `Basic ${new Buffer.from(`${process.env.USER_NAME}:${process.env.PASSWORD}`).toString('base64')}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)

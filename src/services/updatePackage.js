@@ -1,6 +1,7 @@
 import fs from 'fs';
 
 export default async function updatePackage (repository,packageVersion, packageName) {
+  console.log('Update package json file');
   const repoDir = `./temp/${repository}`;
   // check if package.json exist and read file
   const packageJson = fs.readFileSync(`${repoDir}/package.json`, 'utf8');
