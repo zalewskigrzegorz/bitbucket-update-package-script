@@ -1,14 +1,14 @@
 import { simpleGit } from 'simple-git';
-import  fs  from 'fs';
+import fs from 'fs';
 
-const getRepositoryDir = (repository) => `./temp/${repository}`
+const getRepositoryDir = (repository) => `./temp/${repository}`;
 
 const clone = async (workspace, repository, branch) => {
   console.log('Clone repo');
   const remote = `https://${encodeURIComponent(process.env.USER_NAME)}:${encodeURIComponent(process.env.PASSWORD)}@bitbucket.org/${workspace}/${repository}.git`;
   const repoDir = getRepositoryDir(repository);
   if (fs.existsSync(repoDir)) {
-    await fs.rmSync(repoDir,{ recursive: true, force: true });
+    await fs.rmSync(repoDir, { recursive: true, force: true });
   }
 
   await simpleGit().clone(remote, repoDir);
@@ -26,4 +26,4 @@ const push = async (repository, branch) => {
   await simpleGit(repoDir).push('origin', branch);
 };
 
-export {clone, commit, push };
+export { clone, commit, push };

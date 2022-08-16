@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
-import {clone,commit,push}from '../services/git.js';
-import updatePackage from "../services/updatePackage.js";
-import createPullRequest from "../services/createPullRequest.js";
+import { clone, commit, push } from '../services/git.js';
+import updatePackage from '../services/updatePackage.js';
+import createPullRequest from '../services/createPullRequest.js';
 
 function generateQuestions (options) {
   const { packageName, packageVersion } = options;
@@ -57,6 +57,5 @@ export default function async (App) {
         process.exit(1);
       }
       process.exit();
-
     });
 }

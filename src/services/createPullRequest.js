@@ -10,7 +10,7 @@ export default async function createPullRequest (workspace, repository, sourceBr
       branch: {
         name: sourceBranch
       },
-      repository:{
+      repository: {
         full_name: `${workspace}/${repository}`
       }
     },
@@ -18,7 +18,7 @@ export default async function createPullRequest (workspace, repository, sourceBr
       branch: {
         name: destinationBranch
       },
-      repository:{
+      repository: {
         full_name: `${workspace}/${repository}`
       }
     }
